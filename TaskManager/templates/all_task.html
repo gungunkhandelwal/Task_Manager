@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+
+    {% block title %}Delete Task {% endblock%}
+{% block content %}
+    <h1>Task</h1>
+    <ol>
+        <li>Title -{{tasks.title}}
+            <br>
+            Description-{{tasks.description}}
+        </li>
+    </ol>
+    <a href="/update_task">Edit</a>
+    <a href="/delete_task">Delete</a>
+
+
+{% endblock %}

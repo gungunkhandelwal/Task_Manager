@@ -38,15 +38,20 @@ def addTask():
     else:
         return render_template('add_task.html')
 
+from datetime import datetime
+
 @app.route('/update_task')
 def UpdateTask():
-    return render_template('update_task.html')
+        return render_template('update_task.html')
 
 @app.route('/delete_task/<int:id>')
 def deleteTask():
     return render_template('delete_task.html')
 
-
+@app.route('/all_task/<int:myid>')
+def allTask(myid):
+    tasks=tsk.query.filter_by(id=myid).first()
+    return render_template('all_task.html',tasks =tasks)
 
 # For graphql
 app.add_url_rule(
