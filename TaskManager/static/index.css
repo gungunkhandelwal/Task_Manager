@@ -1,0 +1,36 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+ body{
+    background-color: #FFE6E6;
+ }
+.task-head{
+    background-color: #7469B6;
+}
+body .nav-link{
+    color: #E1AFD1;
+}
+
+body .task-brand{
+    color: #E1AFD1;
+}
+
+/* Task  */
+body .task-content{
+    background-color:#E1AFD1;
+    width: 50%;
+    height: auto;
+    border-radius: 15px;
+    margin-left: 27%;
+}
+
+body .task-content h1{
+    text-decoration: underline;
+    color: #7469B6;
+    text-align: center;
+}
+
+body .todoList{
+    margin-top: 10px;
+}

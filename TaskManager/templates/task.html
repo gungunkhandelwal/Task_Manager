@@ -1,18 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Task Manager</h1>
-    <ul>
+{% extends 'index.html' %}
+
+    {% block title %} Todo List {% endblock%}
+{% block content %}
+<div class="task-content">
+    <h1>Todo List</h1>
+     <ol class="todoList">
     {% for task in tasks %}
-    <li>{{task.title}}</li>
-    <li>{{task.description}}</li>
-    <li>{{task.created_at}}</li>
+    <li> Title : {{task.title}} - 
+     User_id :{{task.user_id}}</li>
+    <span>
+    <a href="/update_task">Edit</a>
+    <a href="/delete_task">Delete</a>
+    </span>
+    <hr>
     {% endfor %}
-    </ul>
-</body>
-</html>
+     </ol>
+</div>
+
+
+{% endblock %}

@@ -63,12 +63,11 @@ class User(Base):
 # Task Model
 class Task(Base):
     __tablename__="tasks"
-    id=Column(Integer(),primary_key=True)
-    title=Column(String(100),nullable=False)
+    id=Column(Integer,primary_key=True)
+    title=Column(String(100),nullable=False,index=True)
     description=Column(Text(),nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     user_id=Column(Integer(),ForeignKey("users.id"))
 
     def __repr__(self):
         return f"<Task {self.title}>"
-

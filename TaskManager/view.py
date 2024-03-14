@@ -1,85 +1,77 @@
 from schemas import schema
-from db import Task,session
+from graphql import GraphQLError
 
-# def add_todo(title,description,userId):
-#     mutation_str= f"""
-#        mutation {{
-#            mutateTask(
-#                title: "{title}",
-#                description: "{description}",
-#                userId:{userId}
-#            ) {{
-#                task {{
-#                    title
-#                    description
-#                    user{{
-#                      id
-#                      username
-#                    }}
-#                    createdAt
-#                }}
-#            }}
-#        }}
-#     """
-
-#     try:
-
-#         schema.execute(mutation_str)
-#         return True
-        
-
-#     except Exception as e:
-#         return e
-
-def add_todo(title, description, userId):
-    variables = {
-        "title": title,
-        "description": description,
-        "userId": userId
+def display_todo():
+    query="""{
+    allTask{
+    edges{
+    nodes{
+    title,
+    description,
+    createdAt,
+    userId
     }
+    }
+    }
+    }"""
+    result=schema.execute(query)
+    print(result)
+    if result:
+        print("Working")
+    else:
+        print("It show an error")
 
+
+def add_todo(title,description,userId):
     try:
-        schema.execute("mutation{" +
-	               f'mutateTask(title: "{title}", description: "{description}", userId: "{userId}")' +
-		           "{task{title description user{ id username } createdAt}}}", variables=variables)
-        return True
+        result=schema.execute(f"""
+                mutation{{
+                   mutateTask(title:"{title}",description:"{description}",userId:{userId}){{
+                    task{{
+                        id title description  createdAt  userId
+                    }}
+                }}
+           }}
+        """)
+        print(result)
+        return result
     except Exception as e:
         return e
-
-# def add_todo(title,description,userId):
-#     try:
-#         schema.execute("mutation {"+
-#                        f'createTodo(title:"{title}",description:"{description}",userId:{userId})' +
-#                        "task{title description userId  createdAt }}}")
-#         return True
-#     except Exception as e:
-#         return e
     
 
-def display_todo(title):
-    mutation_str=f""" 
-       query{{
-       todo(title:"{title}"){{
-             title,
-             description,
-             createdAt
-       }}
-       }}
-    """
+def update_todo(title, new_title, new_description, new_created_at):
     try:
-        result=schema.execute(mutation_str)
-
-        task_data=result.data.get('todo')
-        print("task_data---", task_data)
-        if task_data:
-            return {
-                'title': task_data.get('title'),
-                'description': task_data.get('description'),
-                'createdAt': task_data.get('createdAt')
+        mutation_str = """
+            mutation ($title: String!, $newTitle: String!, $newDescription: String!, $newCreatedAt: String!) {
+                mutateUpdateTask(
+                    title: $title,
+                    newTitle: $newTitle,
+                    newDescription: $newDescription,
+                    newCreatedAt: $newCreatedAt
+                ) {
+                    task {
+                        id
+                        title
+                        description
+                        createdAt
+                        userId
+                    }
+                }
             }
-        else:
-            return 'error'
-    
-    except Exception as e:
-        return e
-    
+        """
+        variables = {
+            "title": title,
+            "newTitle": new_title,
+            "newDescription": new_description,
+            "newCreatedAt": new_created_at
+        }
+
+        result = schema.execute(mutation_str, variables=variables)
+        print(result)
+        if result.errors:
+            raise GraphQLError(str(result.errors[0]))
+
+        return result.data
+
+    except GraphQLError as e:
+        return str(e)

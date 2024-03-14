@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Task</title>
-</head>
-<body>
+{% extends 'index.html' %}
+
+    {% block title %}Add Task {% endblock%}
+
+
+{% block content %}
     <h1>Adding Task</h1>
     <form action="/add_task" method="POST">
         <label for="title">Title:</label><br>
@@ -14,11 +12,13 @@
         <label for="description">Description:</label><br>
         <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
 
+        <label for="userId">User ID:</label><br>
+        <input type="text" id="userId" name="userId" required><br><br>
+
         <label for="created_at">Created At:</label><br>
         <input type="datetime-local" id="created_at" name="created_at" required><br><br>
 
         <input type="submit" value="Submit">
     </form>
-
-</body>
-</html>
+    <!-- {{result}} -->
+{% endblock %}
