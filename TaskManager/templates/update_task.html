@@ -3,10 +3,7 @@
     {% block title %}Update Task {% endblock%}
 {% block content %}
     <h1>Update  Task</h1>
-    <form action="/update_task" method="POST">
-        <label for="title">Current Task Title:</label><br>
-        <input type="text" id="title" name="title" required><br><br>
-
+    <form action="/update_task/{{myid}}" method="POST">
         <label for="new_title">New Task Title:</label><br>
         <input type="text" id="new_title" name="new_title" required><br><br>
 
@@ -18,5 +15,6 @@
 
         <input type="submit" value="Update Task">
     </form>
+    {{result}}
 
 {% endblock %}

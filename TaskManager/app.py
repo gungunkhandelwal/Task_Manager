@@ -1,8 +1,6 @@
 from flask import Flask,render_template,request,redirect
 from flask_graphql import GraphQLView
 from schemas import schema
-from graphene import Schema
-from schemas import Mutation
 from db import Task as tsk,session
 from view import display_todo,add_todo,update_todo
 from sqlalchemy import create_engine
@@ -10,7 +8,6 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 import json
 
 app=Flask(__name__,static_folder='static')
-# schema=Schema(mutation=Mutation)
 connection_str = "sqlite:///tasks.db"
 engine = create_engine(connection_str, echo=True)
 
@@ -40,9 +37,17 @@ def addTask():
 
 from datetime import datetime
 
-@app.route('/update_task')
-def UpdateTask():
-        return render_template('update_task.html')
+@app.route('/update_task/<int:myid>',methods=['GET','POST'])
+def UpdateTask(myid):
+        if request.method =='POST':
+            new_title=request.form.get('new_title')
+            new_description=request.form.get('new_description')
+            new_created_at=datetime.utcnow()
+            result=update_todo(id=myid,new_title=new_title,new_description=new_description,new_created_at=new_created_at)
+            print(result)
+            return redirect('/')
+        else:
+            return render_template('update_task.html',myid=myid)
 
 @app.route('/delete_task/<int:id>')
 def deleteTask():

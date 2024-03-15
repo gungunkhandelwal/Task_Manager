@@ -39,12 +39,12 @@ def add_todo(title,description,userId):
         return e
     
 
-def update_todo(title, new_title, new_description, new_created_at):
+def update_todo(id, new_title, new_description, new_created_at):
     try:
         mutation_str = """
-            mutation ($title: String!, $newTitle: String!, $newDescription: String!, $newCreatedAt: DateTime!) {
+            mutation ($id: Int!, $newTitle: String!, $newDescription: String!, $newCreatedAt: DateTime!) {
                 mutateUpdateTask(
-                    title: $title,
+                    id: $id,
                     newTitle: $newTitle,
                     newDescription: $newDescription,
                     newCreatedAt: $newCreatedAt
@@ -60,7 +60,7 @@ def update_todo(title, new_title, new_description, new_created_at):
             }
         """
         variables = {
-            "title": title,
+            "id": id,
             "newTitle": new_title,
             "newDescription": new_description,
             "newCreatedAt": new_created_at

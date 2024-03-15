@@ -81,18 +81,19 @@ class TaskMutation(graphene.Mutation):
 
 class UpdateTask(graphene.Mutation):
     class Arguments:
-        title = graphene.String(required=True)
+        id=graphene.Int()
         new_title = graphene.String()
         new_description = graphene.String()
         new_created_at = graphene.DateTime()
 
     task = graphene.Field(TaskSchema)
 
-    def mutate(self, info, title, new_title=None, new_description=None, new_created_at=None):
-        todo = TaskDB.query.filter_by(title=title).first()
+    def mutate(self, info, id, new_title=None, new_description=None, new_created_at=None):
+        todo = TaskDB.query.filter_by(id=id).first()
+        print(todo)
 
         if not todo:
-            raise Exception(f"ToDo item with title '{title}' not found")
+            raise Exception(f"ToDo item with title '{id}' not found")
         
         if new_title is not None:
             todo.title = new_title
