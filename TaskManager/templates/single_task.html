@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+
+    {% block title %}Delete Task {% endblock%}
+{% block content %}
+<div class="single_task">
+    <h1 class="s_task">{{tasks.title}}</h1>
+    &nbsp;
+    <p class="s_des"> Description - {{tasks.description}}</p>
+    <p>
+    <strong class="s_time">Time -{{tasks.created_at}}</strong></p>
+    
+
+    <a href="/update_task/{{tasks.id}}" class=" btn btn_s">Edit</a>
+    <a href="/delete_task/{{tasks.id}}" class="btn btn_s">Delete</a>
+
+</div>
+
+
+{% endblock %}

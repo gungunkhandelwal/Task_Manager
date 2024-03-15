@@ -1,28 +1,8 @@
 from schemas import schema
 from graphql import GraphQLError
 
-def display_todo():
-    query="""{
-    allTask{
-    edges{
-    nodes{
-    title,
-    description,
-    createdAt,
-    userId
-    }
-    }
-    }
-    }"""
-    result=schema.execute(query)
-    print(result)
-    if result:
-        print("Working")
-    else:
-        print("It show an error")
-
-
 def add_todo(title,description,userId):
+    # This Function is used to executes Task Mutation from schema.py
     try:
         result=schema.execute(f"""
                 mutation{{
@@ -33,13 +13,13 @@ def add_todo(title,description,userId):
                 }}
            }}
         """)
-        print(result)
         return result
     except Exception as e:
         return e
     
 
 def update_todo(id, new_title, new_description, new_created_at):
+    # This Function is used to executes Update Task Mutation from schema.py
     try:
         mutation_str = """
             mutation ($id: Int!, $newTitle: String!, $newDescription: String!, $newCreatedAt: DateTime!) {
@@ -67,7 +47,31 @@ def update_todo(id, new_title, new_description, new_created_at):
         }
 
         result = schema.execute(mutation_str, variables=variables)
-        print(result)
+        if result.errors:
+            raise GraphQLError(str(result.errors[0]))
+
+        return result.data
+
+    except GraphQLError as e:
+        return str(e)
+
+def delete_todo(id):
+    # This Function is used to executes deleter task mutation from schema.py
+    try:
+        mutation_str = """
+            mutation ($id: Int!) {
+                mutateDeleteTask(
+                    id: $id,
+                ) {
+                   success
+                }
+            }
+        """
+        variables = {
+            "id": id,
+        }
+
+        result = schema.execute(mutation_str, variables=variables)
         if result.errors:
             raise GraphQLError(str(result.errors[0]))
 

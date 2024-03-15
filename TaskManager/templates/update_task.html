@@ -2,19 +2,28 @@
 
     {% block title %}Update Task {% endblock%}
 {% block content %}
-    <h1>Update  Task</h1>
+<div class=" update-task">
+    <h2 class="text-center mb-4 add-head">Update Task</h2>
+
     <form action="/update_task/{{myid}}" method="POST">
-        <label for="new_title">New Task Title:</label><br>
-        <input type="text" id="new_title" name="new_title" required><br><br>
+        <div class="form-group  details">
+        <label for="new_title" class="form-head">New Task Title:</label><br>
+        <input type="text" id="new_title" name="new_title" required class="form-control">
+        </div>
+        <br>
+        <div class="form-group  details">
+        <label for="new_description" class="form-head">New Task Description:</label><br>
+        <textarea id="new_description" name="new_description" rows="4" cols="50" required class="form-control"></textarea>
+        </div>
+        <br>
+        <div class="form-group  details">
+        <label for="new_created_at" class="form-head">New Created At:</label><br>
+        <input type="datetime-local" id="new_created_at" name="new_created_at" required class="form-control">
+        </div>
+        <br>
 
-        <label for="new_description">New Task Description:</label><br>
-        <textarea id="new_description" name="new_description" rows="4" cols="50" required></textarea><br><br>
-
-        <label for="new_created_at">New Created At:</label><br>
-        <input type="datetime-local" id="new_created_at" name="new_created_at" required><br><br>
-
-        <input type="submit" value="Update Task">
+        <button type="submit" class="btn submit-btn btn-block">Update</button>
     </form>
-    {{result}}
+</div>
 
 {% endblock %}

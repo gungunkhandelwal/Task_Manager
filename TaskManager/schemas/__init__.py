@@ -1,37 +1,34 @@
 import graphene
 from graphene import relay
-from sqlalchemy.orm import sessionmaker
 from graphene_sqlalchemy import SQLAlchemyObjectType, SQLAlchemyConnectionField
 from db import (
     User as UserDB,
     Task as TaskDB,
     session,
-    engine
 )
 import datetime
 
-# Show user schema
+# Show user schema from user table in database
 class UserSchema(SQLAlchemyObjectType):
     class Meta:
         model = UserDB
         interfaces = (relay.Node, )
 
-# Show task schema
+# Show task schema from tasks table in database
 class TaskSchema(SQLAlchemyObjectType):
     class Meta:
         model = TaskDB
         interfaces = (relay.Node, )
 
-# Query for schema
+# Query for schema user and task
 class Query(graphene.ObjectType):
     node = relay.Node.Field()
     all_task = SQLAlchemyConnectionField(TaskSchema)
     all_user = SQLAlchemyConnectionField(UserSchema)
 
-    def resolve_all_tasks(self, info):
-        return TaskDB.query.all()
 
-# User mutation
+
+# This class is used to add user details in database
 class UserMutation(graphene.Mutation):
     class Arguments:
         username = graphene.String(required=True)
@@ -51,7 +48,7 @@ class UserMutation(graphene.Mutation):
         return UserMutation(user=user)
     
 
-# Task mutation
+# This class is used to add task details in database
 class TaskMutation(graphene.Mutation):
     class Arguments:
         user_id = graphene.Int()
@@ -79,6 +76,7 @@ class TaskMutation(graphene.Mutation):
         return TaskMutation(success=True,task=new_task)
     
 
+# This class is used to update task from given task detail
 class UpdateTask(graphene.Mutation):
     class Arguments:
         id=graphene.Int()
@@ -90,7 +88,6 @@ class UpdateTask(graphene.Mutation):
 
     def mutate(self, info, id, new_title=None, new_description=None, new_created_at=None):
         todo = TaskDB.query.filter_by(id=id).first()
-        print(todo)
 
         if not todo:
             raise Exception(f"ToDo item with title '{id}' not found")
@@ -107,17 +104,18 @@ class UpdateTask(graphene.Mutation):
         return UpdateTask(task=todo)
 
     
+# This class is used to delete task from given task by its id
 class DeleteTask(graphene.Mutation):
     class Arguments:
-        title = graphene.String(required=True)
+        id = graphene.Int(required=True)
 
     success = graphene.Boolean()
 
-    def mutate(self, info, title):
-        todo = TaskDB.query.filter_by(title=title).first()
+    def mutate(self, info, id):
+        todo = TaskDB.query.filter_by(id=id).first()
 
         if not todo:
-            raise Exception(f"ToDo item with title '{title}' not found")
+            raise Exception(f"ToDo item with title '{id}' not found")
         
         session.delete(todo)
         session.commit()
@@ -126,12 +124,11 @@ class DeleteTask(graphene.Mutation):
     
 
 
-# Mention User and Task
+# This class describe all classes above 
 class Mutation(graphene.ObjectType):
     mutate_user = UserMutation.Field()
     mutate_task = TaskMutation.Field()
     mutate_update_task = UpdateTask.Field()
-    # mutate_task = CreateTodo.Field()
     mutate_delete_task = DeleteTask.Field()
 
 schema = graphene.Schema(query=Query, mutation=Mutation)

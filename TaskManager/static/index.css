@@ -19,7 +19,7 @@ body .task-brand{
 /* Task  */
 body .task-content{
     background-color:#E1AFD1;
-    width: 50%;
+    width: 55%;
     height: auto;
     border-radius: 15px;
     margin-left: 27%;
@@ -30,7 +30,91 @@ body .task-content h1{
     color: #7469B6;
     text-align: center;
 }
-
+body .list{
+    margin-top: 30px;
+}
 body .todoList{
     margin-top: 10px;
+}
+
+
+body .task-btn{
+    background-color: #7469B6;
+    color: #FFE6E6;
+    float:right;
+    margin-right: 8px;
+}
+
+body .task-btn:hover{
+    background-color: #FFE6E6;
+    color: #7469B6;
+}
+
+/* Add task */
+
+body .task{
+    background-color:#7469B6;
+    align-items: center;
+    border-radius: 15px;
+    height: 100vh;
+
+}
+
+body .add-head{
+    color: #FFE6E6;
+    text-decoration: underline;
+    padding-top: 10px;
+}
+
+
+body .form-head{
+    color: #FFE6E6;
+}
+
+body .details{
+    width: 50%;
+    margin-left: 28%;
+}
+
+body .submit-btn{
+    background-color: #FFE6E6;
+    color: #7469B6;
+    margin-left: 35%;
+    width: 33%;
+}
+
+body .submit-btn:hover{
+   background-color: #E1AFD1;
+   color: #7469B6;
+}
+
+/* Single Task */
+
+body .single_task{
+    color: #7469B6;
+
+}
+
+body .s_des{
+    font-size: 20px;
+
+}
+
+body .btn_s{
+    background-color: #7469B6;
+    color: #FFE6E6;
+}
+
+body .btn_s:hover{
+    background-color: #E1AFD1;
+    color: #7469B6;
+}
+/* Update Task */
+body .update-task{
+    background-color:#7469B6;
+    align-items: center;
+    border-radius: 15px;
+    height: 75vh;
+    width: 80%;
+    margin-left:10% ;
 }

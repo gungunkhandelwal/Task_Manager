@@ -4,21 +4,30 @@
 
 
 {% block content %}
-    <h1>Adding Task</h1>
+<div class="task">
+    <h2 class="text-center mb-4 add-head">Add Task</h2>
     <form action="/add_task" method="POST">
-        <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title" required><br><br>
+        <div class="form-group  details">
+        <label for="title" class="form-head">Title:</label><br>
+        <input type="text" id="title" name="title" required class="form-control"><br><br>
+        </div>
+         
+        <div class="form-group details">
+        <label for="description" class="form-head">Description:</label><br>
+        <textarea id="description" name="description" rows="4" cols="50" class="form-control"></textarea><br><br>
+        </div>
+        
+        <div class="form-group details">
+        <label for="userId" class="form-head">User ID:</label><br>
+        <input type="number" id="userId" name="userId" required class="form-control"><br><br>
+        </div>
+         
+        <div class="form-group details">
+        <label for="created_at" class="form-head">Created At:</label><br>
+        <input type="datetime-local" id="created_at" name="created_at" required class="form-control"><br><br>
+        </div>
 
-        <label for="description">Description:</label><br>
-        <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
-
-        <label for="userId">User ID:</label><br>
-        <input type="text" id="userId" name="userId" required><br><br>
-
-        <label for="created_at">Created At:</label><br>
-        <input type="datetime-local" id="created_at" name="created_at" required><br><br>
-
-        <input type="submit" value="Submit">
+        <button type="submit" class="btn submit-btn btn-block">Add</button>
     </form>
-    <!-- {{result}} -->
+    </div>
 {% endblock %}

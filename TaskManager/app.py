@@ -2,7 +2,7 @@ from flask import Flask,render_template,request,redirect
 from flask_graphql import GraphQLView
 from schemas import schema
 from db import Task as tsk,session
-from view import display_todo,add_todo,update_todo
+from view import add_todo,update_todo,delete_todo
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 import json
@@ -16,15 +16,15 @@ Session = sessionmaker(bind=engine)
 # Create a scoped session
 db_session = scoped_session(Session)
 
-# Display all task
+# This Function is used to display task from database
 @app.route('/')
 def index():
     tasks=tsk.query.all()
     return render_template('task.html',tasks=tasks)
 
 
-# Add Task to DataBase
 @app.route('/add_task',methods=['GET','POST'])
+# This Function is used to add task to datatbase
 def addTask():
     if request.method == 'POST':
         title=request.form.get('title')
@@ -37,7 +37,9 @@ def addTask():
 
 from datetime import datetime
 
+
 @app.route('/update_task/<int:myid>',methods=['GET','POST'])
+# This Function is used to update task to datatbase by their
 def UpdateTask(myid):
         if request.method =='POST':
             new_title=request.form.get('new_title')
@@ -48,15 +50,18 @@ def UpdateTask(myid):
             return redirect('/')
         else:
             return render_template('update_task.html',myid=myid)
+        
+@app.route('/delete_task/<int:myid>',methods=['GET','POST'])
+# This Function is used to delete task from datatbase by their id
+def deleteTask(myid):
+    delete_todo(id=myid)
+    return redirect('/')
 
-@app.route('/delete_task/<int:id>')
-def deleteTask():
-    return render_template('delete_task.html')
-
-@app.route('/all_task/<int:myid>')
-def allTask(myid):
+@app.route('/single_task/<int:myid>')
+# This Function is used to display single task by their id
+def singleTask(myid):
     tasks=tsk.query.filter_by(id=myid).first()
-    return render_template('all_task.html',tasks =tasks)
+    return render_template('single_task.html',tasks =tasks)
 
 # For graphql
 app.add_url_rule(

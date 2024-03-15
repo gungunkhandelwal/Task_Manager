@@ -1,19 +1,21 @@
 {% extends 'index.html' %}
 
-    {% block title %} Todo List {% endblock%}
+{% block title %} Todo List {% endblock%}
 {% block content %}
 <div class="task-content">
     <h1>Todo List</h1>
-     <ol class="todoList">
-    {% for task in tasks %}
-    <li> Title : {{task.title}} - 
-     User_id :{{task.user_id}}</li>
-    <span>
-    <a href="/all_task/{{task.id}}">All_task</a>
-    </span>
-    <hr>
-    {% endfor %}
-     </ol>
+    <div class="list">
+        <ol class="todoList">
+            {% for task in tasks %}
+            <li> Title : {{task.title}} --
+                {{task.description}}
+                <span>
+                    <a href="/single_task/{{task.id}}" class="btn task-btn">View Task</a>
+                </span>
+                <hr>
+                {% endfor %}
+        </ol>
+    </div>
 </div>
 
 
