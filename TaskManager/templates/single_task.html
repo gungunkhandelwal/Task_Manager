@@ -1,14 +1,15 @@
 {% extends 'index.html' %}
 
-    {% block title %}Delete Task {% endblock%}
+{% block title %}Delete Task {% endblock%}
 {% block content %}
 <div class="single_task">
     <h1 class="s_task">{{tasks.title}}</h1>
     &nbsp;
     <p class="s_des"> Description - {{tasks.description}}</p>
     <p>
-    <strong class="s_time">Time -{{tasks.created_at}}</strong></p>
-    
+        <strong class="s_time">Time -{{tasks.created_at}}</strong>
+    </p>
+
 
     <a href="/update_task/{{tasks.id}}" class=" btn btn_s">Edit</a>
     <a href="/delete_task/{{tasks.id}}" class="btn btn_s">Delete</a>
@@ -17,12 +18,13 @@
 <div class="inst">
     <h3>Instructions</h3>
     <p>
-    This is Single task option Here you casn see single task at a time.</p>
+        This is Single task option Here you casn see single task at a time.</p>
     <p>For Update and Delete the task there is button by clicking on it you can update task and delete</p>
     <ul>
-    <li>If you are not login then first login then you can edit or delete the task</li>
-    <li>If you don't have account the first make account  </li>
-    <li>For making an account when you click login option you can go to keycloak login and register ppage then you can register yourself</li>
+        <li>If you are not login then first login then you can edit or delete the task</li>
+        <li>If you don't have account the first make account </li>
+        <li>For making an account when you click login option you can go to keycloak login and register ppage then you
+            can register yourself</li>
     </ul>
 </div>
 

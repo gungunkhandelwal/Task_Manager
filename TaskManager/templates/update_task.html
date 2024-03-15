@@ -1,24 +1,25 @@
 {% extends 'index.html' %}
 
-    {% block title %}Update Task {% endblock%}
+{% block title %}Update Task {% endblock%}
 {% block content %}
 <div class=" update-task">
     <h2 class="text-center mb-4 add-head">Update Task</h2>
 
     <form action="/update_task/{{myid}}" method="POST">
         <div class="form-group  details">
-        <label for="new_title" class="form-head">New Task Title:</label><br>
-        <input type="text" id="new_title" name="new_title" required class="form-control">
+            <label for="new_title" class="form-head">New Task Title:</label><br>
+            <input type="text" id="new_title" name="new_title" required class="form-control">
         </div>
         <br>
         <div class="form-group  details">
-        <label for="new_description" class="form-head">New Task Description:</label><br>
-        <textarea id="new_description" name="new_description" rows="4" cols="50" required class="form-control"></textarea>
+            <label for="new_description" class="form-head">New Task Description:</label><br>
+            <textarea id="new_description" name="new_description" rows="4" cols="50" required
+                class="form-control"></textarea>
         </div>
         <br>
         <div class="form-group  details">
-        <label for="new_created_at" class="form-head">New Created At:</label><br>
-        <input type="datetime-local" id="new_created_at" name="new_created_at" required class="form-control">
+            <label for="new_created_at" class="form-head">New Created At:</label><br>
+            <input type="datetime-local" id="new_created_at" name="new_created_at" required class="form-control">
         </div>
         <br>
 

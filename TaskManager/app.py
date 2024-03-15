@@ -50,14 +50,14 @@ def index():
     return render_template('task.html',tasks=tasks)
 
 
-@app.route('/single_task/<int:myid>')
 # This Function is used to display single task by their id
+@app.route('/single_task/<int:myid>')
 def singleTask(myid):
     tasks=tsk.query.filter_by(id=myid).first()
     return render_template('single_task.html',tasks =tasks)
 
-@app.route('/add_task',methods=['GET','POST'])
 # This Function is used to add task to datatbase
+@app.route('/add_task',methods=['GET','POST'])
 def addTask():
     if oidc.user_loggedin == 'True':
         if request.method == 'POST':
