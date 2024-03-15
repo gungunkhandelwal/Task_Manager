@@ -16,6 +16,10 @@ body .task-brand{
     color: #E1AFD1;
 }
 
+body .log{
+    padding-left: 8px;
+}
+
 /* Task  */
 body .task-content{
     background-color:#E1AFD1;
@@ -103,6 +107,8 @@ body .s_des{
 body .btn_s{
     background-color: #7469B6;
     color: #FFE6E6;
+    margin-top: 20px;
+
 }
 
 body .btn_s:hover{
@@ -117,4 +123,24 @@ body .update-task{
     height: 75vh;
     width: 80%;
     margin-left:10% ;
+}
+
+body .inst{
+    background-color: #7469B6;
+    color: #FFE6E6;
+    margin-top: 100px;
+    width: 75%;
+    height: 45vh;
+    border-radius: 10px;
+}
+
+body .inst h3{
+    text-align: center;
+    text-decoration: underline;
+}
+
+body .inst p{
+    padding-top: 10px;
+    margin-left: 5px;
+
 }
